@@ -5,8 +5,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EF_BeaversLife;
 
-// NOTE [for me]: use ef_method template to generate simple ef method
-// NOTE [for me]: use print_format to paste Console.Write("\t");
 internal class Program
 {
     private static async Task Main()
@@ -23,99 +21,15 @@ internal class Program
 
         //context.Database.EnsureDeleted();
     }
-    private static void UseFilteredInclude1()
-    {
-        using var context = new AnimalContext();
-
-        var clubs = context.Clubs
-            .Include(club => club.Animals.Where(animal => animal.Name.Contains("Beaver")))
-            .ThenInclude(animal => animal.Grades.Where(grade => grade.TheGrade > 4))
-            .Include(club => club.Animals.Where(animal => animal.Name.Contains("Beaver")))
-            .ThenInclude(a => a.Food).ToList();
-
-
-        Console.ForegroundColor = ConsoleColor.Magenta;
-        foreach (var club in clubs)
-        {
-            Console.WriteLine(club);
-            if (club.Animals != null)
-                foreach (var animal in club.Animals)
-                {
-                    Console.Write("\t");
-                    Console.WriteLine(animal);
-
-
-                    Console.Write("\t");
-                    Console.Write("\t");
-                    Console.WriteLine(animal.Food);
-
-                    if (animal.Grades != null)
-                        foreach (var grade in animal.Grades)
-                        {
-                            Console.Write("\t");
-                            Console.Write("\t");
-                            Console.WriteLine(grade);
-                        }
-                }
-        }
-
-        Console.ForegroundColor = ConsoleColor.White;
-    }
 
     private static void ExecuteQueries()
     {
-        int test = 0;
-        //TestCanonicalMethods.StringMethods();
-        //TestCanonicalMethods.MathMethods();
-        //TestCanonicalMethods.Method();
-        //new UseSplitQuery().UseSplitQuery1();
         UseFilteredInclude1();
-        //new UseSplitQuery().UseSplitQuery2();
-
-        //new UseTVF().UseTVF1();
-
-        //new UseMapToQuery().MapToQuery1();
-        //new UseMix().PrintTest();
-        //new UseMix().PrintTest2();
-        // new UseMix().PrintTest3();
-        //new UseMix().PrintTest4();
-        //new UseMix().OneToOne();
-
-        //new UseInclude().UseFilteredInclude1();
-        //new UseInclude().UseFilteredInclude2();
-        //new UseInclude().UseStringInInclude1();
-        //new UseInclude().UseStringInInclude2();
-
-        //new UseAsEnumerable().UseAsEnumerable1();
-        //new UseAsEnumerable().UseAsEnumerable2();
-
-        //new UseRawSql().UseRawSql1();
-        //new UseRawSql().UseRawSql2("Pizza");
-
-        //new UseInverseProperty().UseInverseProperty1();
-
-        //new UseEnumeration().DbCallDueToToArray();
-        //new UseEnumeration().DbCallDueToToDictionary();
-
-        //new UseEnumeration().DbCallDueToToList2();
-        //new UseEnumeration().DbCallDueToToList3();
-
-        //new UseRawSql().UseRawSql1();
-        //new UseInclude().UseIncludeMultilevel();
-
-        //new Issues().RSRP_481722();
-
-        //new UseProjection().UseProjection2();
-        //new DeleteMe1().DeleteMe4();
-        //new EF_BeaversLife.Queries.Issues().RSRP_481645_new();
-        //new UseMapToDTO().UseMapToDTO1();
-        //new AddElf().ReplaceElvesCollection();
     }
 
     private static async Task ExecuteQueriesAsync()
     {
         //await new UseLinq().UseLinq1();
-
     }
 
     private static void SeedDb()
@@ -1010,5 +924,44 @@ internal class Program
         context.SaveChanges();
 
         context.Database.ExecuteSqlRaw(File.ReadAllText(".\\BD\\CreateTVF.sql"));
+    }
+
+    private static void UseFilteredInclude1()
+    {
+        using var context = new AnimalContext();
+
+        var clubs = context.Clubs
+            .Include(club => club.Animals.Where(animal => animal.Name.Contains("Beaver")))
+            .ThenInclude(animal => animal.Grades.Where(grade => grade.TheGrade > 4))
+            .Include(club => club.Animals.Where(animal => animal.Name.Contains("Beaver")))
+            .ThenInclude(a => a.Food).ToList();
+
+
+        Console.ForegroundColor = ConsoleColor.Magenta;
+        foreach (var club in clubs)
+        {
+            Console.WriteLine(club);
+            if (club.Animals != null)
+                foreach (var animal in club.Animals)
+                {
+                    Console.Write("\t");
+                    Console.WriteLine(animal);
+
+
+                    Console.Write("\t");
+                    Console.Write("\t");
+                    Console.WriteLine(animal.Food);
+
+                    if (animal.Grades != null)
+                        foreach (var grade in animal.Grades)
+                        {
+                            Console.Write("\t");
+                            Console.Write("\t");
+                            Console.WriteLine(grade);
+                        }
+                }
+        }
+
+        Console.ForegroundColor = ConsoleColor.White;
     }
 }
