@@ -1,0 +1,46 @@
+﻿@page "/weather"
+@using ConsoleApp_Core
+@using MediatR
+@using QueryCommand_App.QueryModels
+@inject IMediator Mediator
+@attribute [StreamRendering]
+
+<PageTitle>Weather</PageTitle>
+
+<h1>Animal</h1>
+
+<p>This component demonstrates showing data.</p>
+
+@if (model == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+ 
+            </tr>
+        </thead>
+        <tbody>
+  
+                <tr>
+                <td>@model.Id</td>
+                <td>@model.Name</td>
+ 
+                </tr>
+     
+        </tbody>
+    </table>
+}
+@code {
+	AnimalQueryModel model;
+
+    protected override async Task OnInitializedAsync()
+	{
+		model = await Mediator.Send(new GetAnimalQuery(1));
+	}
+}
