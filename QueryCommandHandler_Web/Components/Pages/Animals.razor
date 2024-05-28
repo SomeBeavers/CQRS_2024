@@ -11,7 +11,7 @@
 
 <p>This component demonstrates showing data.</p>
 
-@if (model == null)
+@if (animals == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -26,21 +26,22 @@ else
             </tr>
         </thead>
         <tbody>
-  
+            @foreach (var model in animals)
+            {
                 <tr>
                 <td>@model.Id</td>
                 <td>@model.Name</td>
  
                 </tr>
-     
+     }
         </tbody>
     </table>
 }
 @code {
-	AnimalQueryModel model;
+	AnimalQueryModel[] animals;
 
     protected override async Task OnInitializedAsync()
 	{
-		model = await Mediator.Send(new GetAnimalQuery(1));
+        animals = await Mediator.Send(new GetAnimalsQuery());
 	}
 }
