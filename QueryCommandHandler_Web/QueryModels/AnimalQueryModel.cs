@@ -11,7 +11,7 @@ public class AnimalQueryModel
 
 public static class AnimalQueryModelExtensions
 {
-    // BUG: this method is called from AddAnimalCommandCommandHandler and GetAnimalQueryHandler
+    // BUG: this method is called from AddAnimalCommandHandler and GetAnimalQueryHandler
     public static AnimalQueryModel ToAnimalQueryModel(this Animal? animal)
     {
         return new AnimalQueryModel { Id = animal.Id, Name = animal.Name ?? "Jane Doe" };
