@@ -1,9 +1,7 @@
-﻿using CoreLib_Common.Model;
-using MediatR;
-using QueryCommand_App.QueryModels;
+﻿using MediatR;
+using QueryCommandHandler_Web.QueryModels;
 
-namespace ConsoleApp_Core
+namespace QueryCommandHandler_Web.Query
 {
-    // Include properties to be used as input for the query
     public record GetAnimalQuery(int Id) : IRequest<AnimalQueryModel>;
 }

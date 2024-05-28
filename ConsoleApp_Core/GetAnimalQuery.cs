@@ -1,4 +1,4 @@
-﻿using CoreLib_Common.Model;
+﻿using DatabaseLib.Model;
 using MediatR;
 
 namespace ConsoleApp_Core

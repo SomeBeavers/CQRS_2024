@@ -1,4 +1,4 @@
-﻿namespace CoreLib_Common.Model;
+﻿namespace DatabaseLib.Model;
 
 //[Table("Crow")]
 public class Crow : Animal

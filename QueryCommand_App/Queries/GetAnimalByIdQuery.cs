@@ -1,4 +1,4 @@
-﻿using CoreLib_Common;
+﻿using DatabaseLib;
 using QueryCommand_App.QueryModels;
 
 namespace QueryCommand_App.Queries;

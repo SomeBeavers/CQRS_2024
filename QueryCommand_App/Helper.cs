@@ -1,4 +1,4 @@
-﻿using CoreLib_Common;
+﻿using DatabaseLib;
 
 namespace QueryCommand_App;
 

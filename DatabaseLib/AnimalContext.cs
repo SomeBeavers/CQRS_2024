@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DatabaseLib.Model;
 
-namespace CoreLib_Common;
+namespace DatabaseLib;
 
 public static class Functions
 {

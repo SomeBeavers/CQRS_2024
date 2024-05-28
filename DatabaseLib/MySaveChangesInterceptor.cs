@@ -1,4 +1,4 @@
-﻿namespace CoreLib_Common;
+﻿namespace DatabaseLib;
 
 public class MySaveChangesInterceptor : SaveChangesInterceptor
 {

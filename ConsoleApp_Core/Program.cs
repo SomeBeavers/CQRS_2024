@@ -1,9 +1,9 @@
-﻿using CoreLib_Common.Model;
-using CoreLib_Common;
-using System.Net;
+﻿using System.Net;
+using DatabaseLib;
+using DatabaseLib.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace EF_BeaversLife;
+namespace ConsoleApp_Core;
 
 internal class Program
 {

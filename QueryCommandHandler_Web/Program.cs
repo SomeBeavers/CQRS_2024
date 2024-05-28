@@ -1,6 +1,7 @@
 using QueryCommandHandler_Web.Components;
 using MediatR;
 using System.Reflection;
+using DatabaseLib;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using QueryCommandHandler_Web.Components.Pages;
@@ -8,8 +9,8 @@ using QueryCommandHandler_Web.Components.Pages;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 // Add services to the container.
-builder.Services.AddScoped<CoreLib_Common.AnimalContext>();
-builder.Services.AddScoped<Weather>();
+builder.Services.AddScoped<AnimalContext>();
+builder.Services.AddScoped<Animals>();
 
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();

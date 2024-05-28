@@ -1,6 +1,6 @@
 ﻿using System.Resources;
-using CoreLib_Common;
-using CoreLib_Common.Model;
+using DatabaseLib;
+using DatabaseLib.Model;
 using MediatR;
 
 namespace ConsoleApp_Core

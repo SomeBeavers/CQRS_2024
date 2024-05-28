@@ -1,23 +1,15 @@
-﻿using System.Resources;
-using CoreLib_Common;
-using CoreLib_Common.Model;
+﻿using DatabaseLib;
 using MediatR;
-using QueryCommand_App.QueryModels;
+using QueryCommandHandler_Web.QueryModels;
 
-namespace ConsoleApp_Core
+namespace QueryCommandHandler_Web.Query
 {
-    internal sealed class GetAnimalQueryHandler : IRequestHandler<GetAnimalQuery, AnimalQueryModel>
+    internal sealed class GetAnimalQueryHandler(AnimalContext context)
+        : IRequestHandler<GetAnimalQuery, AnimalQueryModel>
     {
-        private readonly AnimalContext _context;
-        public GetAnimalQueryHandler(AnimalContext context)
-        {
-            _context = context;
-        }
         public async Task<AnimalQueryModel> Handle(GetAnimalQuery request, CancellationToken cancellationToken)
         {
-            //var context = new AnimalContext();
-            //return new GetAnimalQueryResponse(){}
-            return (await _context.Animals.FindAsync(request.Id, cancellationToken)).ToAnimalQueryModel();
+            return ((await context.Animals.FindAsync(request.Id, cancellationToken))!).ToAnimalQueryModel();
         }
     }
 }

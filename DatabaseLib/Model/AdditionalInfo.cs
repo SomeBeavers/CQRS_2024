@@ -1,4 +1,4 @@
-﻿namespace CoreLib_Common.Model;
+﻿namespace DatabaseLib.Model;
 
 public class AdditionalInfo
 {
