@@ -6,15 +6,15 @@ using QueryCommandHandler_Web.QueryModels;
 
 namespace ConsoleApp_Core
 {
-    internal sealed class AddAnimalCommandHandler(AnimalContext context) : IRequestHandler<AddAnimalCommand, int>
+    internal sealed class AddAnimalCommandHandler(AnimalContext context) : IRequestHandler<AddAnimalCommand, AnimalQueryModel>
     {
-        public async Task<int> Handle(AddAnimalCommand request, CancellationToken cancellationToken)
+        public async Task<AnimalQueryModel> Handle(AddAnimalCommand request, CancellationToken cancellationToken)
         {
             // BUG: guess why
             context.Animals.Add(request.animalCommandModel.ToAnimal());
-            return await context.SaveChangesAsync(cancellationToken);
-            //return (await context.Animals.Where(animal =>
-            //    string.Equals(animal.Name, request.animalCommandModel.Name, StringComparison.Ordinal)).FirstOrDefaultAsync(cancellationToken)).ToAnimalQueryModel();
+            //return await context.SaveChangesAsync(cancellationToken);
+            return (await context.Animals.Where(animal =>
+                string.Equals(animal.Name, request.animalCommandModel.Name, StringComparison.Ordinal)).FirstOrDefaultAsync(cancellationToken)).ToAnimalQueryModel();
         }
     }
 }
