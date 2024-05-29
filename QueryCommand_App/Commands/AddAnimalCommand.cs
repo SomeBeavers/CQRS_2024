@@ -3,9 +3,9 @@ using QueryCommand_App.CommandModels;
 
 namespace QueryCommand_App.Commands;
 
-public class AddAnimalCommand:ICommand
+public class AddAnimalCommand:Command
 {
-    public void Execute(AnimalCommandModel animal)
+    public override void Execute(AnimalCommandModel animal)
     {
         var componentType = this.GetComponentType();
         var context = Helper.GetContext();
@@ -14,8 +14,7 @@ public class AddAnimalCommand:ICommand
     }
 }
 
-public interface ICommand
+public abstract class Command
 {
-    void Execute(AnimalCommandModel animal);
-    //comment
+    public abstract void Execute(AnimalCommandModel animal);
 }
