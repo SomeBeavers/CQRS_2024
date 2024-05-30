@@ -17,14 +17,14 @@ namespace QueryCommandHandler_Web.Command
 
         public void Test()
         {
-            var handle = queryField.Handle(null, default);
-            GetAnimalQueryHandler queryField3 = new(context);
-            NewFunction();
+            //var handle = queryField.Handle(null, default);
+            //GetAnimalQueryHandler queryField3 = new(context);
+            //NewFunction();
 
-            void NewFunction()
-            {
-                GetAnimalQueryHandler queryField2 = new(context);
-            }
+            //void NewFunction()
+            //{
+            //    GetAnimalQueryHandler queryField2 = new(context);
+            //}
         }
     }
 }

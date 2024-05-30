@@ -10,4 +10,9 @@ public static class Helper
         // BUG: not clear in what Queries and Commands this method is used
         return new AnimalContext();
     }
+
+    public static string GetComponentType()
+    {
+        return "Animal";
+    }
 }
