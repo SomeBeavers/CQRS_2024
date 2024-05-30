@@ -6,8 +6,8 @@ public record NormalRecord
 {
     public NormalRecord(GetBeaverQuery getBeaverQuery)
     {
-        var removeAnimalCommand = new RemoveAnimalCommand<GetBeaverQuery>(1, getBeaverQuery);
-        removeAnimalCommand.Test();
+        var removeAnimalCommand = new RemoveAnimal<GetBeaverQuery>(1, getBeaverQuery);
+        removeAnimalCommand.Test(null);
         getBeaverQuery.MethodFromQueryInterface();
     }
 }
