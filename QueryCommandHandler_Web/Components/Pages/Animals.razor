@@ -1,15 +1,18 @@
-﻿@page "/weather"
+﻿@page "/animals"
 @using MediatR
+@using Microsoft.AspNetCore.Mvc
+@using QueryCommandHandler_Web.Command
+@using QueryCommandHandler_Web.CommandModels
 @using QueryCommandHandler_Web.Query
 @using QueryCommandHandler_Web.QueryModels
 @inject IMediator Mediator
+@* @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf *@
+
 @attribute [StreamRendering]
 
 <PageTitle>Animals</PageTitle>
 
 <h1>Animal</h1>
-
-<p>This component demonstrates showing data.</p>
 
 @if (animals == null)
 {
@@ -37,11 +40,25 @@ else
         </tbody>
     </table>
 }
+<!-- Add Animal Form -->
+<form method="post" @onsubmit="AddAnimal">
+@* 	<input type="hidden" name="__RequestVerificationToken" value="@Xsrf.GetAndStoreTokens(new DefaultHttpContext()).RequestToken" /> *@
+	<input type="text" @bind="newAnimal.Name" placeholder="Animal Name"/>
+	<button type="submit">Add Animal</button>
+</form>
+
 @code {
-	AnimalQueryModel[] animals;
+    AnimalQueryModel[] animals;
+    AnimalCommandModel newAnimal = new();
 
     protected override async Task OnInitializedAsync()
-	{
+    {
         animals = await Mediator.Send(new GetAnimalsQuery());
-	}
+    }
+
+    [IgnoreAntiforgeryToken]
+    private async Task<int> AddAnimal()
+    {
+	    return await Mediator.Send(new AddAnimalCommand(newAnimal));
+    }
 }

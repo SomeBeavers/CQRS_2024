@@ -1,9 +1,8 @@
 ﻿using MediatR;
-using QueryCommand_App.CommandModels;
-using QueryCommandHandler_Web.QueryModels;
+using QueryCommandHandler_Web.CommandModels;
 
-namespace ConsoleApp_Core
+namespace QueryCommandHandler_Web.Command
 {
     // Include properties to be used as input for the command
-    public record AddAnimalCommand(AnimalCommandModel animalCommandModel) : IRequest<AnimalQueryModel>;
+    public record AddAnimalCommand(AnimalCommandModel AnimalCommandModel) : IRequest<int>;
 }

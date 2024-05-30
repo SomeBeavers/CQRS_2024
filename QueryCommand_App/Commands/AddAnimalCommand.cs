@@ -14,8 +14,8 @@ public class AddAnimalCommand:Command
         context.SaveChanges();
     }
 }
-[Command]
 public abstract class Command
 {
+    // ReSharper disable once BothContextCall.Global
     public abstract void Execute(AnimalCommandModel animal);
 }

@@ -1,6 +1,6 @@
 ﻿using DatabaseLib.Model;
 
-namespace QueryCommand_App.CommandModels;
+namespace QueryCommandHandler_Web.CommandModels;
 
 public class AnimalCommandModel
 {
