@@ -76,7 +76,7 @@ namespace QueryCommandHandler_Web.Command
 
         //public class {{ model_name }}CommandModel
         //{
-        //    public string Id { get; set; }
+        //    public int Id { get; set; }
         //}
 
         //public static class {{ model_name }}CommandModelExtensions
@@ -91,25 +91,65 @@ namespace QueryCommandHandler_Web.Command
         //");
         //        templates = [createModel];
 
-        var createCommandHandler = Template.Parse(@"
-using DatabaseLib;
-using MediatR;
-using QueryCommandHandler_Web.CommandModels;
+        //        var createCommandHandler = Template.Parse(@"
+        //using DatabaseLib;
+        //using MediatR;
+        //using QueryCommandHandler_Web.CommandModels;
 
-namespace QueryCommandHandler_Web.Command
-{
-    internal sealed class {{ model_name }}{{ action_name }}CommandHandler(AnimalContext context) : IRequestHandler<{{ model_name }}{{ action_name }}Command, int>
-    {
-        public async Task<int> Handle({{ model_name }}{{ action_name }}Command request, CancellationToken cancellationToken)
+        //namespace QueryCommandHandler_Web.Command
+        //{
+        //    internal sealed class {{ model_name }}{{ action_name }}CommandHandler(AnimalContext context) : IRequestHandler<{{ model_name }}{{ action_name }}Command, int>
+        //    {
+        //        public async Task<int> Handle({{ model_name }}{{ action_name }}Command request, CancellationToken cancellationToken)
+        //        {
+        //            // context.Animals.Add(request.AnimalCommandModel.ToAnimal());
+        //            return await context.SaveChangesAsync(cancellationToken);
+        //        }
+        //    }
+        //}
+        //");
+
+        //        templates = [createCommandHandler];
+        //        var createCommand = Template.Parse(@"
+        //using MediatR;
+        //using QueryCommandHandler_Web.CommandModels;
+
+        //namespace QueryCommandHandler_Web.Command
+        //{
+        //    public record {{ model_name }}{{ action_name }}Command({{ model_name }}CommandModel {{ model_name }}CommandModel) : IRequest<int>;
+        //}
+        //");
+        //        var createQuery = Template.Parse(@"
+        //using MediatR;
+        //using QueryCommandHandler_Web.QueryModels;
+
+        //namespace QueryCommandHandler_Web.Query
+        //{
+        //    public record {{ model_name }}{{ action_name }}Query(int Id) : IRequest<{{ model_name }}QueryModel>;
+        //}
+        //");
+
+        //        templates = [createQuery];
+
+        var createModel = Template.Parse(@"
+using DatabaseLib.Model;
+
+namespace QueryCommandHandler_Web.QueryModels;
+
+        public class {{ model_name }}QueryModel
         {
-            // context.Animals.Add(request.AnimalCommandModel.ToAnimal());
-            return await context.SaveChangesAsync(cancellationToken);
+            public int Id { get; set; }
         }
-    }
-}
-");
 
-        templates = [createCommandHandler];
+        public static class {{ model_name }}QueryModelExtensions
+        {
+    public static {{ model_name }}QueryModel To{{ model_name }}QueryModel(this {{ model_name }}? {{ model_name2 }})
+    {
+        return new {{ model_name }}QueryModel { Id = {{ model_name2 }}.Id};
+    }
+        }
+        ");
+        templates = [createModel];
 
         foreach (var document in documents)
         {
@@ -121,28 +161,31 @@ namespace QueryCommandHandler_Web.Command
                 var className = modelClass.Identifier.Text;
                 foreach (var template in templates)
                 {
-                    var source1 = template.Render(new { model_name = className, action_name = "Create" });
-                    WriteToFile(source1, className, "Create", "CommandHandler");
+                    //var source1 = template.Render(new { model_name = className, action_name = "Create" });
+                    //WriteToFile(source1, className, "Create", "CommandHandler");
 
-                    var source2 = template.Render(new { model_name = className, action_name = "Update" });
-                    WriteToFile(source2, className, "Update", "CommandHandler");
-                    var source3 = template.Render(new { model_name = className, action_name = "Remove" });
-                    WriteToFile(source3, className, "Remove", "CommandHandler");
+                    //var source2 = template.Render(new { model_name = className, action_name = "Update" });
+                    //WriteToFile(source2, className, "Update", "CommandHandler");
+                    //var source3 = template.Render(new { model_name = className, action_name = "Remove" });
+                    //WriteToFile(source3, className, "Remove", "CommandHandler");
 
                     //var source4 = template.Render(new { model_name = className });
                     //WriteToFile(source4, className, "CommandModel");
+
+                    var source1 = template.Render(new { model_name = className, model_name2 = className.ToLower()});
+                    WriteToFile(source1, className, null, "QueryModel");
 
                 }
             }
         }
     }
 
-    private static void WriteToFile(string? source, string className, string actionName, string command)
+    private static void WriteToFile(string? source, string className, string? actionName, string command)
     {
         var fileName = Template.Parse(@"{{ model_name }}{{ action_name }}" +command+ @".cs");
         var fileNameString = fileName.Render(new { model_name = className, action_name = actionName });
-        Directory.CreateDirectory("GeneratedCode5");
-        File.WriteAllText("GeneratedCode5/"+fileNameString, source);
+        Directory.CreateDirectory("GeneratedCode7");
+        File.WriteAllText("GeneratedCode7/"+fileNameString, source);
 
         Console.WriteLine($"Generated file: {fileNameString}");
     }

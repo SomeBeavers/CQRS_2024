@@ -5,7 +5,7 @@ namespace QueryCommandHandler_Web.CommandModels;
 
 public class AnimalLocationCommandModel
 {
-    public string Id { get; set; }
+    public int Id { get; set; }
 }
 
 public static class AnimalLocationCommandModelExtensions

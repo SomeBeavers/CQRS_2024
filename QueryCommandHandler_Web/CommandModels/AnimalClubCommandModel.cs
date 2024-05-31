@@ -5,7 +5,7 @@ namespace QueryCommandHandler_Web.CommandModels;
 
 public class AnimalClubCommandModel
 {
-    public string Id { get; set; }
+    public int Id { get; set; }
 }
 
 public static class AnimalClubCommandModelExtensions
