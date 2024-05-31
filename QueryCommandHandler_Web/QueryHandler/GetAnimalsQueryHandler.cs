@@ -1,9 +1,10 @@
 ﻿using DatabaseLib;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using QueryCommandHandler_Web.Query;
 using QueryCommandHandler_Web.QueryModels;
 
-namespace QueryCommandHandler_Web.Query
+namespace QueryCommandHandler_Web.QueryHandler
 {
     internal sealed class GetAnimalsQueryHandler(AnimalContext context)
         : IRequestHandler<GetAnimalsQuery, AnimalQueryModel[]>

@@ -2,7 +2,7 @@
 using MediatR;
 using QueryCommandHandler_Web.Command;
 using QueryCommandHandler_Web.CommandModels;
-using QueryCommandHandler_Web.Query;
+using QueryCommandHandler_Web.QueryHandler;
 
 namespace QueryCommandHandler_Web.CommandHandler
 {

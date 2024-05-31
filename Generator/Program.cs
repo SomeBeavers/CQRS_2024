@@ -131,25 +131,48 @@ namespace QueryCommandHandler_Web.Command
 
         //        templates = [createQuery];
 
-        var createModel = Template.Parse(@"
-using DatabaseLib.Model;
+        //        var createModel = Template.Parse(@"
+        //using DatabaseLib.Model;
 
-namespace QueryCommandHandler_Web.QueryModels;
+        //namespace QueryCommandHandler_Web.QueryModels;
 
-        public class {{ model_name }}QueryModel
-        {
-            public int Id { get; set; }
-        }
+        //        public class {{ model_name }}QueryModel
+        //        {
+        //            public int Id { get; set; }
+        //        }
 
-        public static class {{ model_name }}QueryModelExtensions
-        {
-    public static {{ model_name }}QueryModel To{{ model_name }}QueryModel(this {{ model_name }}? {{ model_name2 }})
+        //        public static class {{ model_name }}QueryModelExtensions
+        //        {
+        //    public static {{ model_name }}QueryModel To{{ model_name }}QueryModel(this {{ model_name }}? {{ model_name2 }})
+        //    {
+        //        return new {{ model_name }}QueryModel { Id = {{ model_name2 }}.Id};
+        //    }
+        //        }
+        //        ");
+        //        templates = [createModel];
+
+        var createQueryHandler = Template.Parse(@"
+using DatabaseLib;
+using MediatR;
+using QueryCommandHandler_Web.Query;
+using QueryCommandHandler_Web.QueryModels;
+
+namespace QueryCommandHandler_Web.QueryHandler
+{
+    internal sealed class {{ model_name }}{{ action_name }}QueryHandler(AnimalContext context)
+        : IRequestHandler<{{ model_name }}{{ action_name }}Query, {{ model_name }}QueryModel>
     {
-        return new {{ model_name }}QueryModel { Id = {{ model_name2 }}.Id};
-    }
+        public async Task<{{ model_name }}QueryModel> Handle({{ model_name }}{{ action_name }}Query request, CancellationToken cancellationToken)
+        {
+            return (await context.{{ model_name }}s.FindAsync(request.Id, cancellationToken))!.To{{ model_name }}QueryModel();
         }
+    }
+}
         ");
-        templates = [createModel];
+
+        templates = [createQueryHandler];
+
+
 
         foreach (var document in documents)
         {
@@ -172,8 +195,11 @@ namespace QueryCommandHandler_Web.QueryModels;
                     //var source4 = template.Render(new { model_name = className });
                     //WriteToFile(source4, className, "CommandModel");
 
-                    var source1 = template.Render(new { model_name = className, model_name2 = className.ToLower()});
-                    WriteToFile(source1, className, null, "QueryModel");
+                    //var source1 = template.Render(new { model_name = className, model_name2 = className.ToLower()});
+                    //WriteToFile(source1, className, null, "QueryModel");
+
+                    var source1 = template.Render(new { model_name = className, action_name = "GetById" });
+                    WriteToFile(source1, className, "GetById", "QueryHandler");
 
                 }
             }
@@ -184,8 +210,8 @@ namespace QueryCommandHandler_Web.QueryModels;
     {
         var fileName = Template.Parse(@"{{ model_name }}{{ action_name }}" +command+ @".cs");
         var fileNameString = fileName.Render(new { model_name = className, action_name = actionName });
-        Directory.CreateDirectory("GeneratedCode7");
-        File.WriteAllText("GeneratedCode7/"+fileNameString, source);
+        Directory.CreateDirectory("GeneratedCode8");
+        File.WriteAllText("GeneratedCode8/"+fileNameString, source);
 
         Console.WriteLine($"Generated file: {fileNameString}");
     }
