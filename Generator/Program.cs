@@ -69,27 +69,48 @@ namespace QueryCommandHandler_Web.Command
 
         templates= [createCommand/*, updateCommand, removeCommand*/];
 
-//        var createModel = Template.Parse(@"
-//using DatabaseLib.Model;
+        //        var createModel = Template.Parse(@"
+        //using DatabaseLib.Model;
 
-//namespace QueryCommandHandler_Web.CommandModels;
+        //namespace QueryCommandHandler_Web.CommandModels;
 
-//public class {{ model_name }}CommandModel
-//{
-//    public string Id { get; set; }
-//}
+        //public class {{ model_name }}CommandModel
+        //{
+        //    public string Id { get; set; }
+        //}
 
-//public static class {{ model_name }}CommandModelExtensions
-//{
-//    public static {{ model_name }} ToDB{{ model_name }}(this {{ model_name }}CommandModel " + @"{{ model_name }}".ToLower() + @")
-//    {
-//        return new {{ model_name }}()
-//        {
-//        };
-//    }
-//}
-//");
-//        templates = [createModel];
+        //public static class {{ model_name }}CommandModelExtensions
+        //{
+        //    public static {{ model_name }} ToDB{{ model_name }}(this {{ model_name }}CommandModel " + @"{{ model_name }}".ToLower() + @")
+        //    {
+        //        return new {{ model_name }}()
+        //        {
+        //        };
+        //    }
+        //}
+        //");
+        //        templates = [createModel];
+
+        var createCommandHandler = Template.Parse(@"
+using DatabaseLib;
+using MediatR;
+using QueryCommandHandler_Web.CommandModels;
+
+namespace QueryCommandHandler_Web.Command
+{
+    internal sealed class {{ model_name }}{{ action_name }}CommandHandler(AnimalContext context) : IRequestHandler<{{ model_name }}{{ action_name }}Command, int>
+    {
+        public async Task<int> Handle({{ model_name }}{{ action_name }}Command request, CancellationToken cancellationToken)
+        {
+            // context.Animals.Add(request.AnimalCommandModel.ToAnimal());
+            return await context.SaveChangesAsync(cancellationToken);
+        }
+    }
+}
+");
+
+        templates = [createCommandHandler];
+
         foreach (var document in documents)
         {
             var syntaxTree = await document.GetSyntaxTreeAsync();
@@ -101,16 +122,15 @@ namespace QueryCommandHandler_Web.Command
                 foreach (var template in templates)
                 {
                     var source1 = template.Render(new { model_name = className, action_name = "Create" });
-                    WriteToFile(source1, className, "Create", "Command");
+                    WriteToFile(source1, className, "Create", "CommandHandler");
 
                     var source2 = template.Render(new { model_name = className, action_name = "Update" });
-                    WriteToFile(source2, className, "Update", "Command");
+                    WriteToFile(source2, className, "Update", "CommandHandler");
                     var source3 = template.Render(new { model_name = className, action_name = "Remove" });
-                    WriteToFile(source3, className, "Remove", "Command");
+                    WriteToFile(source3, className, "Remove", "CommandHandler");
 
                     //var source4 = template.Render(new { model_name = className });
                     //WriteToFile(source4, className, "CommandModel");
-
 
                 }
             }
@@ -121,8 +141,8 @@ namespace QueryCommandHandler_Web.Command
     {
         var fileName = Template.Parse(@"{{ model_name }}{{ action_name }}" +command+ @".cs");
         var fileNameString = fileName.Render(new { model_name = className, action_name = actionName });
-        Directory.CreateDirectory("GeneratedCode4");
-        File.WriteAllText("GeneratedCode4/"+fileNameString, source);
+        Directory.CreateDirectory("GeneratedCode5");
+        File.WriteAllText("GeneratedCode5/"+fileNameString, source);
 
         Console.WriteLine($"Generated file: {fileNameString}");
     }

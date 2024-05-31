@@ -1,9 +1,10 @@
 ﻿using DatabaseLib;
 using MediatR;
+using QueryCommandHandler_Web.Command;
 using QueryCommandHandler_Web.CommandModels;
 using QueryCommandHandler_Web.Query;
 
-namespace QueryCommandHandler_Web.Command
+namespace QueryCommandHandler_Web.CommandHandler
 {
     internal sealed class AddBeaverCommandHandler(AnimalContext context) : IRequestHandler<AddBeaverCommand, int>
     {

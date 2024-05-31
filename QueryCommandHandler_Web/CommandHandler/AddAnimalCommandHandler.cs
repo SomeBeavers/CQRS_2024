@@ -1,8 +1,9 @@
 ﻿using DatabaseLib;
 using MediatR;
+using QueryCommandHandler_Web.Command;
 using QueryCommandHandler_Web.CommandModels;
 
-namespace QueryCommandHandler_Web.Command
+namespace QueryCommandHandler_Web.CommandHandler
 {
     internal sealed class AddAnimalCommandHandler(AnimalContext context) : IRequestHandler<AddAnimalCommand, int>
     {
