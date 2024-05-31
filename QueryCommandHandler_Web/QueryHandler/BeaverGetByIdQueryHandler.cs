@@ -18,5 +18,6 @@ namespace QueryCommandHandler_Web.QueryHandler
             common1.Test();
         }
     }
+
 }
         

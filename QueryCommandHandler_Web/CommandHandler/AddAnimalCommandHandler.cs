@@ -1,5 +1,5 @@
 ﻿using DatabaseLib;
-
+using Lib;
 using MediatR;
 using QueryCommandHandler_Web.Command;
 using QueryCommandHandler_Web.CommandModels;
@@ -27,6 +27,7 @@ namespace QueryCommandHandler_Web.CommandHandler
 
         private async Task<AnimalQueryModel> GetAnimal(AnimalGetByIdQuery animalGetByIdQuery)
         {
+            LibClass.LibMethod();
             var x = true ? null: animalGetByIdQuery!;
             NewClass.NewMethod(animalGetByIdQuery);
             return await Mediator.Send(animalGetByIdQuery!);

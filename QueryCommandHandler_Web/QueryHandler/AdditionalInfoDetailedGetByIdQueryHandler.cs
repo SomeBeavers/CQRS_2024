@@ -1,5 +1,6 @@
 
 using DatabaseLib;
+using Lib;
 using MediatR;
 using QueryCommandHandler_Web.Query;
 using QueryCommandHandler_Web.QueryModels;
@@ -15,6 +16,7 @@ namespace QueryCommandHandler_Web.QueryHandler
         }
         public void UseCommon1(JetBrains.Annotations.CommonClasses.Common1 common1)
         {
+            LibClass.LibMethod();
             common1.Test();
         }
     }
