@@ -56,7 +56,6 @@ else
         animals = await Mediator.Send(new GetAnimalsQuery());
     }
 
-    [IgnoreAntiforgeryToken]
     private async Task<int> AddAnimal()
     {
 	    return await Mediator.Send(new AddAnimalCommand(newAnimal));
