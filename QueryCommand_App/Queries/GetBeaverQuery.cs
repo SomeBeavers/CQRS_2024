@@ -1,4 +1,6 @@
-﻿namespace QueryCommand_App.Queries;
+﻿using NLog;
+
+namespace QueryCommand_App.Queries;
 
 public class GetBeaverQuery : INormalQuery
 {
@@ -9,6 +11,14 @@ public class GetBeaverQuery : INormalQuery
     public void MethodFromQueryInterface()
     {
         throw new NotImplementedException();
+    }
+
+    public void LoggingMethod()
+    {
+        var serializedObject = Newtonsoft.Json.JsonConvert.SerializeObject(this);
+
+        Logger logger = LogManager.GetCurrentClassLogger();
+        logger.Info(serializedObject);
     }
 }
 
