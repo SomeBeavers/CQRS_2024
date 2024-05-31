@@ -1,4 +1,5 @@
 ﻿using DatabaseLib;
+
 using MediatR;
 using QueryCommandHandler_Web.Command;
 using QueryCommandHandler_Web.CommandModels;
@@ -14,6 +15,11 @@ namespace QueryCommandHandler_Web.CommandHandler
             return await context.SaveChangesAsync(cancellationToken);
             //return (await context.Animals.Where(animal =>
             //    string.Equals(animal.Name, request.AnimalCommandModel.Name, StringComparison.Ordinal)).FirstOrDefaultAsync(cancellationToken)).ToAnimalQueryModel();
+        }
+
+        public void UseCommon1(JetBrains.Annotations.CommonClasses.Common1 common1)
+        {
+            common1.Test();
         }
     }
 }

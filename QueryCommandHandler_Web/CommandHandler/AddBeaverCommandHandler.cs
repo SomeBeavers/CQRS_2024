@@ -27,5 +27,10 @@ namespace QueryCommandHandler_Web.CommandHandler
             //    GetAnimalQueryHandler queryField2 = new(context);
             //}
         }
+
+        public void UseCommon1(JetBrains.Annotations.CommonClasses.Common1 common1)
+        {
+            common1.Test();
+        }
     }
 }

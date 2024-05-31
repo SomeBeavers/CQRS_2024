@@ -13,6 +13,10 @@ namespace QueryCommandHandler_Web.QueryHandler
         {
             return (await context.Clubs.FindAsync(request.Id, cancellationToken))!.ToClubQueryModel();
         }
+        public void UseCommon1(JetBrains.Annotations.CommonClasses.Common1 common1)
+        {
+            common1.Test();
+        }
     }
 }
         

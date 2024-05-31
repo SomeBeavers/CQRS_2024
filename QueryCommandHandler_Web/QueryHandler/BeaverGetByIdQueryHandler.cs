@@ -13,6 +13,10 @@ namespace QueryCommandHandler_Web.QueryHandler
         {
             return (await context.Beavers.FindAsync(request.Id, cancellationToken))!.ToBeaverQueryModel();
         }
+        public void UseCommon1(JetBrains.Annotations.CommonClasses.Common1 common1)
+        {
+            common1.Test();
+        }
     }
 }
         

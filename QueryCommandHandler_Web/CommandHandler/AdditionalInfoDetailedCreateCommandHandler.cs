@@ -12,5 +12,9 @@ namespace QueryCommandHandler_Web.Command
             // context.Animals.Add(request.AnimalCommandModel.ToAnimal());
             return await context.SaveChangesAsync(cancellationToken);
         }
+        public void UseCommon1(JetBrains.Annotations.CommonClasses.Common1 common1)
+        {
+            common1.Test();
+        }
     }
 }
